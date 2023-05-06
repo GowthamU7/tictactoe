@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './game.css'
-import tictactoe from './handler'
 function Game({props}){
     let name1 = props.player1
     let name2 = props.player2
