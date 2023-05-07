@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Game from "./game"
+import "./App.css"
 function App(){
   let [names,setNames] = useState({player1:'',player2:''})
   let [show,setShow] = useState(false)
