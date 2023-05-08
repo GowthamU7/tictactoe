@@ -1,112 +1,93 @@
+
 import { useState } from 'react'
 import './game.css'
 function Game({props}){
-    let name1 = props.player1
-    let name2 = props.player2
-    let [grid,setGrid] = useState([['','',''],['','',''],['','','']])
-    let [filled,setFilled] = useState(0)
-    let [decision,setDecision] = useState({declared:false,msg:''})
-    let [tmp,setTmp] = useState('')
-    function pressed(e){
-        if(filled<9 && !decision.declared){
-            plot(parseInt(e.target.id.split("_")[0]),parseInt(e.target.id.split("_")[1]))
-            checWinner()
+    let [style,setStyle] = useState(0)
+    let [grid,updateGrid] = useState([['','',''],['','',''],['','','']])
+    let [points,setPoints] = useState({X:0,O:0})
+    let [draw,setDraw] = useState([])
+    async function updateG(r,c){
+        var tmpG = grid
+        if(tmpG[r][c] === ''){
+            tmpG[r][c] = style === 0?'X':'O'
+            updateGrid(tmpG)
+            style === 0?setStyle(1):setStyle(0)
+            setTimeout(()=>{
+                let tmpdraw = draw
+                let dec = checkWinner(grid)
+                if(dec !== 'D'){
+                    alert(`${dec === 'X'?props.player1:props.player2} won!`)
+                    let tmpsc = points
+                    tmpsc[dec]++
+                    setPoints(tmpsc)
+                    reset()
+                    return;
+                }else{
+                    tmpdraw.push('D')
+                    setDraw(tmpdraw)
+                }
+                if(draw.length === 9){
+                    alert("It was a draw")
+                    reset()
+                    return
+                }
+            },200)
         }
-        else{
-            if(filled == 9){
-                setDecision({declared:true,msg:"Its a draw"})
-                alert(decision.msg)
-            }
-        }
+
     }
-    function plot(r,c){
-        var tmp_gd = grid
-        if(tmp === ''){
-            tmp_gd[r][c]='X'
-            setTmp('X')
-        }else{
-            tmp_gd[r][c] = 'O'
-            setTmp('')
-        }
-        setGrid(tmp_gd)
-        filled++
-        setFilled(filled)
-    }
-    function checWinner(){
-        let tmp_dec = {declared:false,msg:''}
+
+    function checkWinner(grid){
         for(let i=0;i<3;i++){
-            if((grid[i][0]+grid[i][1]+grid[i][2]) === 'XXX' || (grid[i][0]+grid[i][1]+grid[i][2]) === 'OOO' ){
-                tmp_dec.declared=true
-                tmp_dec.msg = `${grid[i][0] === 'X'?name1:name2} is the winner.`
-                break
-            }
+            if(grid[i][0]+grid[i][1]+grid[i][2] === 'XXX' || grid[i][0]+grid[i][1]+grid[i][2] === 'OOO') return grid[i][0]
         }
-        for(let j=0;j<3;j++){
-            if((grid[0][j]+grid[1][j]+grid[2][j]) === 'XXX' || (grid[0][j]+grid[1][j]+grid[2][j]) === 'OOO' ){
-                tmp_dec.declared=true
-                tmp_dec.msg = `${grid[0][j] === 'X'?name1:name2} is the winner.`
-                break
-            }
+        for(let i=0;i<3;i++){
+            if(grid[0][i]+grid[1][i]+grid[2][i] === 'XXX' || grid[0][i]+grid[1][i]+grid[2][i] === 'OOO') return grid[0][i]
         }
-        if(grid[0][0]+grid[1][1]+grid[2][2] === 'XXX' || grid[0][0]+grid[1][1]+grid[2][2] === 'OOO'){
-            tmp_dec.declared=true
-            tmp_dec.msg = `${grid[0][0] === 'X'?name1:name2} is the winner.`
-        }
-        if(grid[0][2]+grid[1][1]+grid[2][0] === 'XXX' || grid[0][2]+grid[1][1]+grid[2][0] === 'OOO'){
-            tmp_dec.declared=true
-            console.log('0 2')
-            tmp_dec.msg = `${grid[0][2] === 'X'?name1:name2} is the winner.`
-        }
-        if(filled >= 9){
-            tmp_dec.declared=true
-            tmp_dec.msg = `Its a draw.`
-        }
-        setDecision(tmp_dec)
+        if(grid[0][0]+grid[1][1]+grid[2][2] === 'XXX' || grid[0][0]+grid[1][1]+grid[2][2] === 'OOO') return grid[0][0]
+        if(grid[0][2]+grid[1][1]+grid[2][0] === 'XXX' || grid[0][2]+grid[1][1]+grid[2][0] === 'OOO') return grid[0][2]
+        return 'D'
     }
-    function reserGrid(){
-        setGrid([['','',''],['','',''],['','','']])
-        setDecision({declared:false,msg:''})
-        setTmp('')
-        setFilled(0)
+
+    function reset(){
+        setStyle(0)
+        updateGrid([['','',''],['','',''],['','','']])
+        setDraw([])
     }
-    return(
-        <div>
-            <div className='header'>
-                <h1>Tic Tac Toe</h1>
+
+    return (<div className='board'>
+            <div className='players'>
+                <div className='player1'
+                style={{textDecoration:style === 0 ?'underline':'none',textDecorationColor:style===0?"darkslategray":'none'}}
+                >
+                <h3>(X) {props.player1}     wins - {points.X}</h3>
+                </div>
+                <div className='player2'
+                style={{textDecoration:style === 1 ?'underline':'none',textDecorationColor:style===1?"darkslategray":'none'}}
+                >
+                <h3>(O) {props.player2}     wins - {points.O}</h3>
+                </div>
             </div>
-            <div className="grid">
-             <div className='names'>
-             <p>{name1} (X) </p>  <p>{name2} (O)</p>
-             </div>
-            <p>{decision.msg === '' && filled>1?'You still have chance':decision.msg}</p>
-            <div className="row1">
-                <div id="0_0"
-                onClick={(e)=>pressed(e)}>{grid[0][0]}</div>
-                <div id="0_1"
-                onClick={(e)=>pressed(e)}>{grid[0][1]}</div>
-                <div id="0_2"
-                onClick={(e)=>pressed(e)}>{grid[0][2]}</div>
+            <div className='main'>
+                <div className='grid'>
+                    <div className='row0'>
+                        <div className='zero_zero' onClick={()=>updateG(0,0)} >{grid[0][0]}</div>
+                        <div className='zero_one'  onClick={()=>updateG(0,1)} >{grid[0][1]}</div>
+                        <div className='zero_two'  onClick={()=>updateG(0,2)} >{grid[0][2]}</div>
+                    </div>
+                    <div className='row1'>
+                        <div className='one_zero'  onClick={()=>updateG(1,0)} >{grid[1][0]}</div>
+                        <div className='one_one'   onClick={()=>updateG(1,1)} >{grid[1][1]}</div>
+                        <div className='one_two'   onClick={()=>updateG(1,2)} >{grid[1][2]}</div>
+                    </div>
+                    <div className='row2'>
+                        <div className='two_zero'  onClick={()=>updateG(2,0)} >{grid[2][0]}</div>
+                        <div className='two_one'   onClick={()=>updateG(2,1)} >{grid[2][1]}</div>
+                        <div className='two_two'   onClick={()=>updateG(2,2)} >{grid[2][2]}</div>
+                    </div>
+                    <button onClick={()=>reset()}>Restart!</button>
+                </div>
             </div>
-            <div className="row2">
-                <div id="1_0"
-                onClick={(e)=>pressed(e)}>{grid[1][0]}</div>
-                <div id="1_1"
-                onClick={(e)=>pressed(e)}>{grid[1][1]}</div>
-                <div id="1_2"
-                onClick={(e)=>pressed(e)}>{grid[1][2]}</div>
-            </div>
-            <div className="row3">
-                <div id="2_0"
-                onClick={(e)=>pressed(e)}>{grid[2][0]}</div>
-                <div id="2_1"
-               onClick={(e)=>pressed(e)}>{grid[2][1]}</div>
-                <div id="2_2"
-                onClick={(e)=>pressed(e)}>{grid[2][2]}</div>
-            </div>
-            <button onClick={()=>reserGrid()}>reset grid</button>
-            </div>
-        </div>
-    )
+    </div>)
 }
 
 export default Game

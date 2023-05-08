@@ -2,8 +2,16 @@
   text-align: center;
   background-color: rgba(0, 0, 0, 0.877);
   color: rgba(255, 255, 255, 0.623);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .home-header{
   text-decoration: underline;
 }

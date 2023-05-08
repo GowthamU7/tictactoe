@@ -1,44 +1,65 @@
-.header{
-    text-align: center;
-}
-.grid{
-    padding-left: 30%;
-}
-.row1,.row2,.row3{
+.players{
     display: flex;
+    justify-content: space-evenly;
+    color: rgb(77, 77, 77);
 }
-.names{
+
+
+.player1,.player2{
     display: flex;
-    justify-content:space-around;
-    padding-right: 50%;
+    justify-content: space-evenly;
 }
 
-.row1 > div,.row2>div,.row3>div{
-    width: 80px;
-    height: 60px;
-    border: 1px solid rgb(138, 238, 7);
-    text-align: center;
-    align-content:stretch;
-    align-items: stretch;
-    padding-top: 20px;
-    font-size: x-large;
-    color: rgba(35, 99, 45, 0.712);
-    cursor: pointer;
+.main {
+    display: flex;
+    margin-top: 5%;
+    justify-content: center;
 }
 
-.footer{
-    margin-top: 10%;
-    text-align: center;
+.row0,.row1,.row2{
+    display: flex;
+    justify-content: center;
 }
 
-button{
-    background-color: rgba(0, 0, 0, 0.507);
+.grid > button{
+    width: 100%;
+    align-self: center;
+    margin-top: 20%;
+    background-color: darkslategray;
+    border: none;
     color: white;
     height: 30px;
-    margin-top: 10px;
-    width: 246px;
-    border: none;
-    letter-spacing: 2px;
-    font-family: 'Courier New', Courier, monospace;
+    border-radius: 10px;
+}
+
+.grid{
     cursor: pointer;
+}
+
+.row0>div,.row1>div,.row2>div{
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    color: darkslategray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: rgb(0, 32, 24);
+}
+
+.zero_zero,.one_zero{
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+}
+
+.zero_one,.one_one{
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+}
+.zero_two,.one_two{
+    border-bottom: 2px solid;
+}
+
+.two_zero,.two_one{
+    border-right: 2px solid;
 }
