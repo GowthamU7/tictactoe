@@ -18,7 +18,7 @@ function Session(){
       {body:JSON.stringify({player1:names.player1,player2:names.player2}),method:"POST"}).then((res)=>{
         res.json().then((data)=>{
             setTimeout(()=>{
-                window.location.assign(`/tictactoe/details?id=${data.gameId}`)
+                window.location.assign(`details?id=${data.gameId}`)
             },500)
         })
       })
