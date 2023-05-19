@@ -15,7 +15,7 @@ function Details(){
         imf()
     },[x])
     function start(){
-        window.location.assign(`tictactoe/game?id=${data._id}`)
+        window.location.assign(`game?id=${data._id}`)
     }
     return (
         <div>

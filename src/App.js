@@ -5,9 +5,9 @@ import Game from "./game"
 function App(){
   return <Router>
     <Routes>
-      <Route Component={Session} path="tictactoe/"></Route>
-      <Route Component={Details} path="tictactoe/details"></Route>
-      <Route Component={Game} path="tictactoe/game"></Route>
+      <Route Component={Session} path="/"></Route>
+      <Route Component={Details} path="details"></Route>
+      <Route Component={Game} path="game"></Route>
     </Routes>
   </Router>
 }
