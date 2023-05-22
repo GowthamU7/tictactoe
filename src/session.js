@@ -18,7 +18,7 @@ function Session(){
       {body:JSON.stringify({player1:names.player1,player2:names.player2}),method:"POST"}).then((res)=>{
         res.json().then((data)=>{
             setTimeout(()=>{
-                window.location.assign(`https://tictactoeonline-jro4.onrender.com/details?id=${data.gameId}`)
+                window.location.assign(`details?id=${data.gameId}`)
             },300)
         })
       })
@@ -30,7 +30,7 @@ function Session(){
     setRoomId(vl)
   }
   function joinRoom(){
-    window.location.assign(`https://tictactoeonline-jro4.onrender.com/game?id=${roomId}`)
+    window.location.assign(`game?id=${roomId}`)
   }
   return (
     <div>
