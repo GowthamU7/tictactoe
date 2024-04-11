@@ -14,7 +14,7 @@ function Game(){
 
     useEffect(()=>{
         let imf = async()=>{
-            let res = await fetch(`https://tictactoemultimp.onrender.com/details?id=${id.get("id")}`)
+            let res = await fetch(`https://tictactoebc.onrender.com/details?id=${id.get("id")}`)
             let resData = await res.json()
             console.log(resData)
             updateGrid(resData.game)
@@ -29,13 +29,13 @@ function Game(){
 
     async function updateG(r,c){
         let apiData = {row:r,column:c,player:style}
-        fetch(`https://tictactoemultimp.onrender.com/updateGrid?id=${id.get("id")}`,
+        fetch(`https://tictactoebc.onrender.com/updateGrid?id=${id.get("id")}`,
         {body:JSON.stringify(apiData),method:"PUT"})
     }
 
     async function reset(){
         setStyle('X')
-        fetch(`https://tictactoemultimp.onrender.com/reset?id=${id.get("id")}`,{method:"PUT"})
+        fetch(`https://tictactoebc.onrender.com/reset?id=${id.get("id")}`,{method:"PUT"})
         updateGrid([['','',''],['','',''],['','','']])
     }
 

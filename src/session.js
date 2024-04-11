@@ -14,7 +14,7 @@ function Session(){
   }
   function send(){
     if(names.player1!=='' && names.player2!==''){
-      fetch('https://tictactoemultimp.onrender.com/create/',
+      fetch('https://tictactoebc.onrender.com/create/',
       {body:JSON.stringify({player1:names.player1,player2:names.player2}),method:"POST"}).then((res)=>{
         res.json().then((data)=>{
             setTimeout(()=>{

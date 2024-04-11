@@ -7,7 +7,7 @@ function Details(){
     console.log(x)
     useEffect(()=>{
         var imf = async()=>{
-            var res = await fetch(`https://tictactoemultimp.onrender.com/details?id=${x.get("id")}`)
+            var res = await fetch(`https://tictactoebc.onrender.com/details?id=${x.get("id")}`)
             var resData = await res.json()
             console.log(resData)
             setData(resData)
