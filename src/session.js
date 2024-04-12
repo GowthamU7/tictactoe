@@ -30,32 +30,49 @@ function Session(){
     setRoomId(vl)
   }
   function joinRoom(){
+    if(roomId === "") return alert('Missing roomId')
     window.location.assign(`game?id=${roomId}`)
   }
   return (
-    <div>
-      <div className="home">
-      <div className="home-header">
-        <h1>Welcome to Tic-tac-toe online</h1>
+    <div className="flex justify-center mt-80">
+      <div className="font-sans">
+      <div className="home-header m-5 font-mono">
+        <h1 className="text-xl m-7">Tictactoe Multiplayer</h1>
       </div>
-      <div className="home-body">
+      <div className="home-body m-5">
           {showjoinRoom?<div>
             <form>
-              <label htmlFor="roomid">RoomId</label>
-              <input value={roomId} onChange={(e)=>{updateId(e)}}/>
-              <button type="button" onClick={()=>{joinRoom()}}>Join</button>
-            </form>
-          </div>:<div>
+              <label htmlFor="roomid" className="font-serif text-xs"></label>
+              <input className="border ml-8 border-sky-300 border-rounded rounded-md pl-3
+              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              placeholder:italic
+            placeholder:text-sm
+            "
+            placeholder="Room-Id"
+            value={roomId} onChange={(e)=>{updateId(e)}}/>
+              <div className="flex jusity-center">
+                <button className="ml-28 mt-5 border bg-green-400 w-1/4 rounded text-slate-900 font-mono text-sm h-8" type="button" onClick={()=>{joinRoom()}}>Join</button>
+            
+              </div>
+              </form>
+          </div>:<div className="m-5">
               <form>
-              <label htmlFor="player1">Name of player1</label>
+              <label htmlFor="player1" className="font-mono text-sm"></label>
             <input 
             type="text" 
             name="player1" 
             value={names.player1}
             id="player1"
             onChange={(e)=>setPlayerName(e)}
-            required={true}/><br/>
-            <label htmlFor="player2">Name of player2</label>
+            required={true}
+            className="border m-2 border-sky-300 border-rounded rounded-md pl-3
+            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            placeholder:italic
+            placeholder:text-sm
+            "
+            placeholder="Name of player1"
+            /><br/>
+            <label htmlFor="player2" className="font-serif text-xs"></label>
             <input 
             type="text" 
             name="player2" 
@@ -63,16 +80,32 @@ function Session(){
             id="player2"
             onChange={(e)=>setPlayerName(e)}
             required={true}
+            className="border m-2 border-sky-300 border-rounded rounded-md pl-3
+            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            placeholder:italic
+            placeholder:text-sm
+            "
+            placeholder="Name of player2"
             /><br/>
+            <div className="flex  h-7 justify-evenly mt-3">
             <button
             type="button"
             onClick={()=>{send()}}
+            className="border w-1/3 bg-green-400
+            rounded text-slate-900 font-mono text-xs
+            hover:border-green-900
+            "
             >
-              create room
+              create
             </button>
             <button 
+            className="border w-1/3 bg-green-400
+            rounded text-slate-900 font-mono text-xs
+            hover:border-green-900
+            "
             type="button"
-            onClick={()=>{updateShowJoinRoom(!showjoinRoom)}}>Join Room</button>
+            onClick={()=>{updateShowJoinRoom(!showjoinRoom)}}>Join</button>
+            </div>
         </form>
             </div>}
       </div>

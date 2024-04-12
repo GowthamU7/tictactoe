@@ -20,9 +20,9 @@
     width: 100%;
     align-self: center;
     margin-top: 10%;
-    background-color: rgb(8, 68, 68);
+    background-color: rgba(212, 149, 31, 0.884);
     border: none;
-    color: white;
+    color: #000000;
     height: 30px;
     border-radius: 10px;
     letter-spacing: 1px;
@@ -33,7 +33,7 @@
 }
 
 .grid{
-    background-color: rgba(145, 184, 255, 0.767);
+    background-color: rgba(192, 194, 194, 0.164);
     padding: 10px;
     border-radius: 10px;
 }

@@ -44,12 +44,12 @@ function Game(){
                 <div className='player1'
                 style={{textDecoration:style === 'X' ?'underline':'none',textDecorationColor:style==='X'?"rgb(241, 137, 18)":'none'}}
                 >
-                <h3>(X) {props.player1}     wins - {points.X}</h3>
+                <h3>(X) {props.player1}     <br/>wins - {points.X}</h3>
                 </div>
                 <div className='player2'
                 style={{textDecoration:style === 'O' ?'underline':'none',textDecorationColor:style==='O'?"rgb(241, 137, 18)":'none'}}
                 >
-                <h3>(O) {props.player2}     wins - {points.O}</h3>
+                <h3>(O) {props.player2}     <br/>wins - {points.O}</h3>
                 </div>
             </div>
             <div className='main'>
