@@ -19,7 +19,11 @@ function Details(){
     }
 
     function copyToClipBoard(){
-        navigator.clipboard.writeText(data._id)
+        try{
+            navigator.clipboard.writeText(data._id)
+        }catch(e){
+            alert("something went wrong, try Manual copy.")
+        }
     }
     return (
         <div className="flex justify-center mt-80">
