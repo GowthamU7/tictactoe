@@ -16,13 +16,14 @@ function Game(){
         let imf = async()=>{
             let res = await fetch(`https://tictactoebc.onrender.com/details?id=${id.get("id")}`)
             let resData = await res.json()
-            console.log(resData)
-            updateGrid(resData.game)
-            setProps({player1:resData.player1,player2:resData.player2})
-            setPoints({X:resData.player1Score,O:resData.player2Score})
-            setStyle(resData.turn)
-            setDone(resData.dec.decided)
-            setDecision(resData.dec.msg)
+            setTimeout(()=>{
+                updateGrid(resData.game)
+                setProps({player1:resData.player1,player2:resData.player2})
+                setPoints({X:resData.player1Score,O:resData.player2Score})
+                setStyle(resData.turn)
+                setDone(resData.dec.decided)
+                setDecision(resData.dec.msg)
+            },100)
         }
         imf()
     })

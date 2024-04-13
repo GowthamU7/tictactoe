@@ -1,10 +1,13 @@
 import { useState } from "react"
-import Game from "./game"
+import { ColorRing } from 'react-loader-spinner'
 import "./App.css"
+
+
 function Session(){
   let [names,setNames] = useState({player1:'',player2:''})
   let [showjoinRoom,updateShowJoinRoom] = useState(false)
   let [roomId,setRoomId] = useState('')
+  let [showLoader,setShowLoader] = useState(false)
   function setPlayerName(e){
     if(e.target.id === 'player1'){
       setNames({player1:e.target.value,player2:names.player2})
@@ -14,12 +17,11 @@ function Session(){
   }
   function send(){
     if(names.player1!=='' && names.player2!==''){
+      setShowLoader(true)
       fetch('https://tictactoebc.onrender.com/create/',
       {body:JSON.stringify({player1:names.player1,player2:names.player2}),method:"POST"}).then((res)=>{
         res.json().then((data)=>{
-            setTimeout(()=>{
-                window.location.assign(`details?id=${data.gameId}`)
-            },300)
+           window.location.assign(`details?id=${data.gameId}`)
         })
       })
     }
@@ -36,6 +38,7 @@ function Session(){
   return (
     <div className="flex justify-center mt-80">
       <div className="font-sans">
+        
       <div className="home-header m-5 font-mono">
         <h1 className="text-xl m-7">Tictactoe Multiplayer</h1>
       </div>
@@ -92,11 +95,21 @@ function Session(){
             type="button"
             onClick={()=>{send()}}
             className="border w-1/3 bg-green-400
-            rounded text-slate-900 font-mono text-xs
+            rounded text-slate-900 flex justify-center font-mono text-xs
             hover:border-green-900
             "
-            >
-              create
+            >{showLoader?
+              <span>
+                <ColorRing  
+              visible={true}
+              height="25"
+              width="25"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={['black']}
+              /></span>  
+          :<p className="m-1">Create</p>}
             </button>
             <button 
             className="border w-1/3 bg-green-400
