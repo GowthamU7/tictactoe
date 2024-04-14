@@ -9,6 +9,7 @@ function Game(){
     let [points,setPoints] = useState({X:0,O:0})
     let [id,setX] = useSearchParams('id')
     let [done,setDone] = useState(false)
+    let [me,setMe] = useState("")
     let [decision,setDecision] = useState('')
 
 
@@ -30,6 +31,8 @@ function Game(){
 
     async function updateG(r,c){
         let apiData = {row:r,column:c,player:style}
+        if(me === "") setMe(style)
+        if(me !== style) return alert("It is not your turn.")
         fetch(`https://tictactoebc.onrender.com/updateGrid?id=${id.get("id")}`,
         {body:JSON.stringify(apiData),method:"PUT"})
     }
