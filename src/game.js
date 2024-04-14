@@ -19,6 +19,7 @@ function Game(){
             let resData = await res.json()
             setTimeout(()=>{
                 updateGrid(resData.game)
+                console.log(grid)
                 setProps({player1:resData.player1,player2:resData.player2})
                 setPoints({X:resData.player1Score,O:resData.player2Score})
                 setStyle(resData.turn)
@@ -32,7 +33,7 @@ function Game(){
     async function updateG(r,c){
         let apiData = {row:r,column:c,player:style}
         if(me === "") setMe(style)
-        if(me !== style) return alert("It is not your turn.")
+        else if(me !== style){return alert("It is not your turn.")}
         fetch(`https://tictactoebc.onrender.com/updateGrid?id=${id.get("id")}`,
         {body:JSON.stringify(apiData),method:"PUT"})
     }
@@ -48,12 +49,12 @@ function Game(){
                 <div className='player1'
                 style={{textDecoration:style === 'X' ?'underline':'none',textDecorationColor:style==='X'?"rgb(241, 137, 18)":'none'}}
                 >
-                <h3>(X) {props.player1}     <br/>wins - {points.X}</h3>
+                <h3>{props.player1}     <br/>wins - {points.X}</h3>
                 </div>
                 <div className='player2'
                 style={{textDecoration:style === 'O' ?'underline':'none',textDecorationColor:style==='O'?"rgb(241, 137, 18)":'none'}}
                 >
-                <h3>(O) {props.player2}     <br/>wins - {points.O}</h3>
+                <h3>{props.player2}     <br/>wins - {points.O}</h3>
                 </div>
             </div>
             <div className='main'>
